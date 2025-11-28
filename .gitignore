@@ -1,0 +1,24 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Streamlit
+.streamlit/secrets.toml
+.streamlit/*.json
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
+
+# Logs or temp files
+*.log
+
+# Byte code
+*.pyo

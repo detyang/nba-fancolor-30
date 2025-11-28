@@ -1,0 +1,60 @@
+/* CSS Style Sheet */
+
+/* Center align all headers */
+h1, h2, h3 {
+    text-align: center !important;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* Style the label inside each option as a button */
+div[data-testid="stRadio"] label {
+    width: 19%; 
+    margin-right: 0.5%;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 3px solid transparent;
+
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* --- Radio option text styles --- */
+.stRadio > label,
+.stRadio div[data-testid="stMarkdownContainer"] p {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+
+/* 1: Hometeam */
+div[data-testid="stRadio"] label:nth-of-type(1) {
+    background-color: #1d4ed8;
+}
+
+/* 2: Like */
+div[data-testid="stRadio"] label:nth-of-type(2) {
+    background-color: #22c55e;
+}
+
+/* 3: Neutral */
+div[data-testid="stRadio"] label:nth-of-type(3) {
+    background-color: #808080;
+}
+
+/* 4: Dislike */
+div[data-testid="stRadio"] label:nth-of-type(4) {
+    background-color: #fdba74;
+}
+
+/* 5: Hate */
+div[data-testid="stRadio"] label:nth-of-type(5) {
+    background-color: #c91313;
+}
+
+/* Active (selected) state: thicker dark border */
+div[data-testid="stRadio"] label:has(input[type="radio"]:checked) {
+    border-color: #ffffff;
+}
