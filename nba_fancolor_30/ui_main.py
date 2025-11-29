@@ -118,6 +118,8 @@ def render_app() -> None:
     else:
         base_img = st.session_state["base_template"]
 
+    st.image(base_img, caption="Debug: base template")
+    
     # ----- Palette at top -----
     _render_color_palette()
 
