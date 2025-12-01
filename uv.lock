@@ -256,14 +256,14 @@ source = { virtual = "." }
 dependencies = [
     { name = "pillow" },
     { name = "streamlit" },
-    { name = "streamlit-drawable-canvas-fix" },
+    { name = "streamlit-drawable-canvas" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "pillow", specifier = ">=12.0.0" },
     { name = "streamlit", specifier = ">=1.51.0" },
-    { name = "streamlit-drawable-canvas-fix", specifier = ">=0.9.8" },
+    { name = "streamlit-drawable-canvas", specifier = "==0.9.2" },
 ]
 
 [[package]]
@@ -638,17 +638,17 @@ wheels = [
 ]
 
 [[package]]
-name = "streamlit-drawable-canvas-fix"
-version = "0.9.8"
+name = "streamlit-drawable-canvas"
+version = "0.9.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy" },
     { name = "pillow" },
     { name = "streamlit" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/cb/7c/f7d1823c4ad01d4ba1bff2651ea2468a934997fed5d5f7819f7119ab4382/streamlit_drawable_canvas_fix-0.9.8.tar.gz", hash = "sha256:7bda602983ee6e74365e70714dac23e0c3334f9f066455ff3eb949916a175078", size = 1158729 }
+sdist = { url = "https://files.pythonhosted.org/packages/50/2c/8dd1d17a769e3594deed74826bfe2e4f3631a542f029e4afde400c6db4ba/streamlit-drawable-canvas-0.9.2.tar.gz", hash = "sha256:6cdec8c405b829588c1ea46f18249b668cddcd5597cfa6802690a37921b163b0", size = 3212154 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5b/0c/1d52e24668579e45195125f1c302680f64ce9087ee55dbe5984c63641f8c/streamlit_drawable_canvas_fix-0.9.8-py3-none-any.whl", hash = "sha256:99f3664a29adbf68c41dbb45c3bddd074c91c7a3e6f4af95e880031422b40ca0", size = 1169376 },
+    { url = "https://files.pythonhosted.org/packages/43/c3/5eef53a64eb94a25aca8ea04c268d5125b62be7c2f0186bf544dff532f2e/streamlit_drawable_canvas-0.9.2-py3-none-any.whl", hash = "sha256:40dde80f4c437727a4d30c587510ad215fd93525c3ba5da09b2267546fecfb8f", size = 1237616 },
 ]
 
 [[package]]
