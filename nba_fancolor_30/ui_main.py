@@ -118,7 +118,8 @@ def render_app() -> None:
     else:
         base_img = st.session_state["base_template"]
 
-    st.image(base_img, caption="Debug: base template")
+    # Ensure background for canvas is RGB (not RGBA)
+    canvas_bg = base_img.convert("RGB")
     
     # ----- Palette at top -----
     _render_color_palette()
@@ -139,9 +140,9 @@ def render_app() -> None:
         stroke_width=20,
         stroke_color=brush_color,
         background_color="#ffffff",
-        background_image=base_img, 
-        height=base_img.height,
-        width=base_img.width,
+        background_image=canvas_bg, 
+        height=canvas_bg.height,
+        width=canvas_bg.width,
         drawing_mode="freedraw",
         display_toolbar=False,
         key="team_canvas",
