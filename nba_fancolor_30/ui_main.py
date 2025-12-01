@@ -134,81 +134,65 @@ def render_app() -> None:
         """
     )
 
-    # --- DEBUG: simple test canvas ---
-    debug_bg = Image.new("RGB", (600, 400), "yellow")
-
-    debug_canvas = st_canvas(
+    # --- Canvas (bottom) ---
+    canvas_result = st_canvas(
         fill_color="rgba(0, 0, 0, 0)",
-        stroke_width=5,
-        stroke_color="#000000",
+        stroke_width=20,
+        stroke_color=brush_color,
         background_color="#ffffff",
-        background_image=debug_bg,   # <--- very simple image
-        height=400,
-        width=600,
+        background_image=canvas_bg, 
+        height=canvas_bg.height,
+        width=canvas_bg.width,
         drawing_mode="freedraw",
         display_toolbar=False,
-        key="debug_canvas",
+        key="team_canvas",
     )
 
-    # --- Canvas (bottom) ---
-    # canvas_result = st_canvas(
-    #     fill_color="rgba(0, 0, 0, 0)",
-    #     stroke_width=20,
-    #     stroke_color=brush_color,
-    #     background_color="#ffffff",
-    #     background_image=canvas_bg, 
-    #     height=canvas_bg.height,
-    #     width=canvas_bg.width,
-    #     drawing_mode="freedraw",
-    #     display_toolbar=False,
-    #     key="team_canvas",
-    # )
+    final_canvas = None  # will hold base + drawing
 
-    # final_canvas = None  # will hold base + drawing
+    if canvas_result is not None and canvas_result.image_data is not None:
+        # User drawing layer (transparent)
+        overlay = Image.fromarray(
+            canvas_result.image_data.astype("uint8"),
+            mode="RGBA",
+        )
 
-    # if canvas_result is not None and canvas_result.image_data is not None:
-    #     # User drawing layer (transparent)
-    #     overlay = Image.fromarray(
-    #         canvas_result.image_data.astype("uint8"),
-    #         mode="RGBA",
-    #     )
+        # Start from base template
+        base_rgba = base_img.convert("RGBA").copy()
 
-    #     # Start from base template
-    #     base_rgba = base_img.convert("RGBA").copy()
+        # Make sure overlay matches base size (just in case)
+        if overlay.size != base_rgba.size:
+            overlay = overlay.resize(base_rgba.size)
 
-    #     # Make sure overlay matches base size (just in case)
-    #     if overlay.size != base_rgba.size:
-    #         overlay = overlay.resize(base_rgba.size)
+        # Composite drawing on top of base template
+        base_rgba.alpha_composite(overlay)
 
-    #     # Composite drawing on top of base template
-    #     base_rgba.alpha_composite(overlay)
-
-    #     final_canvas = base_rgba
+        final_canvas = base_rgba
     
     poster_bytes = None
 
-    # if final_canvas is not None:
-        # width = final_canvas.width
+    if final_canvas is not None:
+        width = final_canvas.width
 
-        # title_bar = build_title_bar("NBA Fan Color 30", width)
-        # palette_bar = build_palette_strip(COLOR_MAP, width)
+        title_bar = build_title_bar("NBA Fan Color 30", width)
+        palette_bar = build_palette_strip(COLOR_MAP, width)
 
-        # total_height = title_bar.height + palette_bar.height + final_canvas.height
+        total_height = title_bar.height + palette_bar.height + final_canvas.height
 
-        # poster = Image.new("RGBA", (width, total_height), (255, 255, 255, 255))
+        poster = Image.new("RGBA", (width, total_height), (255, 255, 255, 255))
 
-        # y = 0
-        # poster.paste(title_bar, (0, y))
-        # y += title_bar.height
+        y = 0
+        poster.paste(title_bar, (0, y))
+        y += title_bar.height
 
-        # poster.paste(palette_bar, (0, y))
-        # y += palette_bar.height
+        poster.paste(palette_bar, (0, y))
+        y += palette_bar.height
 
-        # poster.paste(final_canvas, (0, y))
+        poster.paste(final_canvas, (0, y))
 
-        # buf = io.BytesIO()
-        # poster.save(buf, format="PNG")
-        # poster_bytes = buf.getvalue()
+        buf = io.BytesIO()
+        poster.save(buf, format="PNG")
+        poster_bytes = buf.getvalue()
 
     st.markdown("### Export")
 
