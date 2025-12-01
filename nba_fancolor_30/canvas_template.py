@@ -22,7 +22,7 @@ def build_base_template(
     height = rows * cell_size
 
     extra_bottom = 20
-    img = Image.new("RGBA", (width, height + extra_bottom), bg_color)
+    img = Image.new("RGB", (width, height + extra_bottom), bg_color)
     draw = ImageDraw.Draw(img)
 
     # Smaller font for full team name below circle
