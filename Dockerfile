@@ -22,6 +22,9 @@ COPY pyproject.toml uv.lock ./
 RUN pip install --no-cache-dir uv \
  && uv sync --frozen --no-dev
 
+# Make uv's virtualenv the default for all subsequent commands
+ENV PATH="/app/.venv/bin:$PATH"
+
 # Copy the rest of the project
 COPY . .
 
