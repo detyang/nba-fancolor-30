@@ -14,13 +14,12 @@ from .canvas_template import build_base_template
 
 def _get_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
     """Prefer a packaged font that exists on Linux (HF) over platform fonts."""
-    face = "DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf"
-    fallbacks = [
-        ("arial.ttf", bold),
-        (face, bold),
+    faces = [
+        "DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf",
+        "arial.ttf",
     ]
 
-    for name, _ in fallbacks:
+    for name in faces:
         try:
             return ImageFont.truetype(name, size=size)
         except OSError:
@@ -57,11 +56,11 @@ def _render_color_palette() -> None:
     st.session_state["brush_label"] = choice
     st.session_state["brush_color"] = COLOR_MAP[choice]
 
-def build_palette_strip(color_map: dict[str, str], width: int, height: int = 70) -> Image.Image:
+def build_palette_strip(color_map: dict[str, str], width: int, height: int = 80) -> Image.Image:
     img = Image.new("RGBA", (width, height), (255, 255, 255, 255))
     draw = ImageDraw.Draw(img)
 
-    font = _get_font(24, bold=True)
+    font = _get_font(26, bold=True)
 
     items = list(color_map.items())
     n = len(items)
@@ -90,11 +89,11 @@ def build_palette_strip(color_map: dict[str, str], width: int, height: int = 70)
 
     return img
 
-def build_title_bar(text: str, width: int, height: int = 80) -> Image.Image:
+def build_title_bar(text: str, width: int, height: int = 90) -> Image.Image:
     img = Image.new("RGBA", (width, height), (255, 255, 255, 255))
     draw = ImageDraw.Draw(img)
 
-    font = _get_font(40, bold=True)
+    font = _get_font(48, bold=True)
 
     # NEW: use textbbox instead of textsize
     bbox = draw.textbbox((0, 0), text, font=font)
