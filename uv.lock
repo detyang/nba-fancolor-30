@@ -257,6 +257,7 @@ dependencies = [
     { name = "pillow" },
     { name = "streamlit" },
     { name = "streamlit-drawable-canvas-fix" },
+    { name = "streamlit-javascript" },
 ]
 
 [package.metadata]
@@ -264,6 +265,7 @@ requires-dist = [
     { name = "pillow", specifier = "==12.0.0" },
     { name = "streamlit", specifier = "==1.51.0" },
     { name = "streamlit-drawable-canvas-fix", specifier = "==0.9.8" },
+    { name = "streamlit-javascript", specifier = "==0.1.5" },
 ]
 
 [[package]]
@@ -649,6 +651,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/cb/7c/f7d1823c4ad01d4ba1bff2651ea2468a934997fed5d5f7819f7119ab4382/streamlit_drawable_canvas_fix-0.9.8.tar.gz", hash = "sha256:7bda602983ee6e74365e70714dac23e0c3334f9f066455ff3eb949916a175078", size = 1158729 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/5b/0c/1d52e24668579e45195125f1c302680f64ce9087ee55dbe5984c63641f8c/streamlit_drawable_canvas_fix-0.9.8-py3-none-any.whl", hash = "sha256:99f3664a29adbf68c41dbb45c3bddd074c91c7a3e6f4af95e880031422b40ca0", size = 1169376 },
+]
+
+[[package]]
+name = "streamlit-javascript"
+version = "0.1.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "streamlit" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a5/69/723ebc7a58057b1e6f54d0c23c86488054d756e0e470daf4db703fe02a63/streamlit-javascript-0.1.5.tar.gz", hash = "sha256:9da5176522a0acf2c39d3b0bec9f856fdd8ea3c70bb1066841a546ab1348ae1d", size = 512374 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/87/81/0c9e9e4d2dab97224efe105ba44f47b259f37d8e7673b94f5b5523fe2c8f/streamlit_javascript-0.1.5-py3-none-any.whl", hash = "sha256:36ca4d8c46fd5b6526d1a705530472e03cb6e5bb24694330649f21d5c436d280", size = 518387 },
 ]
 
 [[package]]
