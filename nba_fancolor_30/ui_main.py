@@ -194,24 +194,23 @@ def render_app() -> None:
         poster.save(buf, format="PNG")
         poster_bytes = buf.getvalue()
 
-    st.markdown("### Export")
-
-    col_save, col_share = st.columns(2)
+    col_save, col_share = st.columns(2, gap="small")
 
     with col_save:
         if poster_bytes is not None:
             st.download_button(
-                "💾 Save image",
+                "Save image",
                 data=poster_bytes,
                 file_name="nba_fancolor_30.png",
                 mime="image/png",
+                use_container_width=True,
             )
         else:
             st.caption("Draw something on the canvas to enable saving.")
 
     with col_share:
         if poster_bytes is not None:
-            if st.button("📤 Share"):
+            if st.button("Share", use_container_width=True):
                 st.info(
                     "1. Click **Save image** to download your poster.\n"
                     "2. Upload the PNG to your favorite platform (X, TikTok, Reddit, etc.).\n\n"
