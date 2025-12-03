@@ -12,6 +12,23 @@ from .data import TEAMS, NUM_COLS, COLOR_MAP
 from .canvas_template import build_base_template
 
 
+def _get_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
+    """Prefer a packaged font that exists on Linux (HF) over platform fonts."""
+    face = "DejaVuSans-Bold.ttf" if bold else "DejaVuSans.ttf"
+    fallbacks = [
+        ("arial.ttf", bold),
+        (face, bold),
+    ]
+
+    for name, _ in fallbacks:
+        try:
+            return ImageFont.truetype(name, size=size)
+        except OSError:
+            continue
+
+    return ImageFont.load_default()
+
+
 def _render_color_palette() -> None:
 
     options = list(COLOR_MAP.keys())
@@ -44,10 +61,7 @@ def build_palette_strip(color_map: dict[str, str], width: int, height: int = 70)
     img = Image.new("RGBA", (width, height), (255, 255, 255, 255))
     draw = ImageDraw.Draw(img)
 
-    try:
-        font = ImageFont.truetype("arial.ttf", 24)
-    except OSError:
-        font = ImageFont.load_default()
+    font = _get_font(24, bold=True)
 
     items = list(color_map.items())
     n = len(items)
@@ -80,10 +94,7 @@ def build_title_bar(text: str, width: int, height: int = 80) -> Image.Image:
     img = Image.new("RGBA", (width, height), (255, 255, 255, 255))
     draw = ImageDraw.Draw(img)
 
-    try:
-        font = ImageFont.truetype("arial.ttf", 40)
-    except OSError:
-        font = ImageFont.load_default()
+    font = _get_font(40, bold=True)
 
     # NEW: use textbbox instead of textsize
     bbox = draw.textbbox((0, 0), text, font=font)
