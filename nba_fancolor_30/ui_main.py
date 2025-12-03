@@ -4,8 +4,8 @@ from pathlib import Path
 import io
 
 import streamlit as st
-import streamlit.components.v1 as components
 from streamlit_drawable_canvas import st_canvas
+from streamlit_javascript import st_javascript
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -110,23 +110,12 @@ def build_title_bar(text: str, width: int, height: int = 90) -> Image.Image:
     return img
 
 def _get_viewport_width(default: int = 1200) -> int:
-    """Detect viewport width via a tiny HTML component; fall back to default."""
-    result = components.html(
-        """
-        <script>
-        const sendWidth = () => {
-            const w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || 1200;
-            window.parent.postMessage({isStreamlitMessage: true, type: "streamlit:setComponentValue", value: w}, "*");
-        };
-        sendWidth();
-        window.addEventListener('resize', sendWidth);
-        </script>
-        """,
-        height=0,
-    )
-    if isinstance(result, int):
-        return result
-    return default
+    """Detect viewport width via JS; fall back to default if unavailable."""
+    width = st_javascript("return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;")
+    try:
+        return int(width)
+    except Exception:
+        return default
 
 def load_css():
     css_path = Path(__file__).parent / "assets" / "styles.css"
@@ -144,10 +133,10 @@ def render_app() -> None:
     viewport_width = _get_viewport_width()
 
     # Auto-scale canvas for mobile/desktop widths
-    if viewport_width < 700:
-        cell_size = 90
-    elif viewport_width < 1100:
-        cell_size = 105
+    if viewport_width < 480:
+        cell_size = 75
+    elif viewport_width < 900:
+        cell_size = 95
     else:
         cell_size = 115
 
