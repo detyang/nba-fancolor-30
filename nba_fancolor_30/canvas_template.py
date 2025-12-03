@@ -25,8 +25,8 @@ def build_base_template(
     img = Image.new("RGB", (width, height + extra_bottom), bg_color)
     draw = ImageDraw.Draw(img)
 
-    # Smaller font for full team name below circle
-    font_name = _get_font(int(cell_size * 0.12))
+    # Slightly larger font for full team name below circle
+    font_name = _get_font(int(cell_size * 0.16))
 
     circle_margin = int(cell_size * 0.25)
     name_margin_top = int(cell_size * 0.05)
@@ -75,7 +75,7 @@ def build_base_template(
         draw.text(
             (center_x - w1 / 2, line1_y),
             line1,
-            fill=team_color,
+            fill="#000000",
             font=font_name,
         )
 
@@ -89,7 +89,7 @@ def build_base_template(
             draw.text(
                 (center_x - w2 / 2, line2_y),
                 line2,
-                fill=team_color,
+                fill="#000000",
                 font=font_name,
             )
 
