@@ -1,5 +1,10 @@
 /* CSS Style Sheet */
 
+/* Global typography */
+body, button, input, select, textarea {
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
 /* Center align all headers */
 h1, h2, h3 {
     text-align: center !important;
