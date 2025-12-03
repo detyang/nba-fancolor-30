@@ -28,8 +28,9 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Copy the rest of the project
 COPY . .
 
-# Expose Streamlit default port
-EXPOSE 8501
+# Expose HF port
+EXPOSE 7860
+ENV PORT=7860
 
-# Run the Streamlit app; PORT is used by hosts like Railway/Fly
-CMD ["sh", "-c", "streamlit run app.py --server.port=${PORT:-8501} --server.address=0.0.0.0"]
+# Run Streamlit on the expected port/address
+CMD ["sh", "-c", "streamlit run app.py --server.port=${PORT} --server.address=0.0.0.0"]
