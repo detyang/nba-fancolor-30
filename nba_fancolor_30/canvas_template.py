@@ -101,4 +101,8 @@ def _get_font(size: int) -> ImageFont.FreeTypeFont:
     try:
         return ImageFont.truetype("arial.ttf", size=size)
     except OSError:
-        return ImageFont.load_default()
+        # Pillow bundles DejaVuSans, which is available in most Linux images
+        try:
+            return ImageFont.truetype("DejaVuSans.ttf", size=size)
+        except OSError:
+            return ImageFont.load_default()
