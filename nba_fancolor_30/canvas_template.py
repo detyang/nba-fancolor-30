@@ -25,7 +25,7 @@ def build_base_template(
     img = Image.new("RGB", (width, height + extra_bottom), bg_color)
     draw = ImageDraw.Draw(img)
 
-    # Slightly larger font for full team name below circle
+    # Slightly larger font for full team name below circle (balanced for export)
     font_name = _get_font(int(cell_size * 0.16))
 
     circle_margin = int(cell_size * 0.25)
@@ -99,10 +99,12 @@ def build_base_template(
 def _get_font(size: int) -> ImageFont.FreeTypeFont:
     """Try to get a decent font; fall back to default."""
     try:
-        return ImageFont.truetype("arial.ttf", size=size)
+        return ImageFont.truetype("DejaVuSans-Bold.ttf", size=size)
     except OSError:
-        # Pillow bundles DejaVuSans, which is available in most Linux images
         try:
             return ImageFont.truetype("DejaVuSans.ttf", size=size)
         except OSError:
-            return ImageFont.load_default()
+            try:
+                return ImageFont.truetype("arial.ttf", size=size)
+            except OSError:
+                return ImageFont.load_default()
