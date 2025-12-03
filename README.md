@@ -1,3 +1,13 @@
+---
+title: NBA Fan Color 30
+emoji: 🏀
+colorFrom: blue
+colorTo: red
+sdk: docker
+app_file: Dockerfile
+pinned: false
+---
+
 # NBA Fan Color 30 🎨🏀
 
 A Streamlit-based web app that lets users color their NBA team fan ratings and export a shareable poster.
