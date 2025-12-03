@@ -75,7 +75,7 @@ def build_base_template(
         draw.text(
             (center_x - w1 / 2, line1_y),
             line1,
-            fill=team_color,
+            fill="#000000",
             font=font_name,
         )
 
@@ -89,7 +89,7 @@ def build_base_template(
             draw.text(
                 (center_x - w2 / 2, line2_y),
                 line2,
-                fill=team_color,
+                fill="#000000",
                 font=font_name,
             )
 
