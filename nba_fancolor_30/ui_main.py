@@ -4,6 +4,7 @@ from pathlib import Path
 import io
 
 import streamlit as st
+import streamlit.components.v1 as components
 from streamlit_drawable_canvas import st_canvas
 
 from PIL import Image, ImageDraw, ImageFont
@@ -108,6 +109,25 @@ def build_title_bar(text: str, width: int, height: int = 90) -> Image.Image:
     )
     return img
 
+def _get_viewport_width(default: int = 1200) -> int:
+    """Detect viewport width via a tiny HTML component; fall back to default."""
+    result = components.html(
+        """
+        <script>
+        const sendWidth = () => {
+            const w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || 1200;
+            window.parent.postMessage({isStreamlitMessage: true, type: "streamlit:setComponentValue", value: w}, "*");
+        };
+        sendWidth();
+        window.addEventListener('resize', sendWidth);
+        </script>
+        """,
+        height=0,
+    )
+    if isinstance(result, int):
+        return result
+    return default
+
 def load_css():
     css_path = Path(__file__).parent / "assets" / "styles.css"
     with open(css_path) as f:
@@ -121,12 +141,22 @@ def render_app() -> None:
     st.title("🏀 NBA Fan Color 30  ")
     st.markdown('<p class="subtitle">DIY your own NBA fan color poster.</p>', unsafe_allow_html=True)
 
-    # Build base template
-    if "base_template" not in st.session_state:
-        base_img = build_base_template()
-        st.session_state["base_template"] = base_img
+    viewport_width = _get_viewport_width()
+
+    # Auto-scale canvas for mobile/desktop widths
+    if viewport_width < 700:
+        cell_size = 90
+    elif viewport_width < 1100:
+        cell_size = 105
     else:
-        base_img = st.session_state["base_template"]
+        cell_size = 115
+
+    # Build base template keyed by chosen size (so switching sizes rebuilds)
+    template_key = f"base_template_{cell_size}"
+    if template_key not in st.session_state:
+        base_img = build_base_template(cell_size=cell_size)
+        st.session_state[template_key] = base_img
+    base_img = st.session_state[template_key]
 
     # Ensure background for canvas is RGB (not RGBA)
     canvas_bg = base_img.convert("RGB")
@@ -155,7 +185,7 @@ def render_app() -> None:
         width=canvas_bg.width,
         drawing_mode="freedraw",
         display_toolbar=False,
-        key="team_canvas",
+        key=f"team_canvas_{cell_size}",
     )
 
     final_canvas = None  # will hold base + drawing
