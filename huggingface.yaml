@@ -1,0 +1,7 @@
+title: NBA Fan Color 30
+emoji: 🏀
+colorFrom: blue
+colorTo: red
+sdk: docker
+app_file: Dockerfile
+pinned: false
