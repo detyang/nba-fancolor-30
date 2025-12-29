@@ -13,6 +13,11 @@ from .data import TEAMS, NUM_COLS, COLOR_MAP
 from .canvas_template import build_base_template
 
 
+@st.cache_data(show_spinner=False)
+def load_base_template(cell_size: int) -> Image.Image:
+    p = Path(__file__).parent / "assets" / "templates" / f"base_{cell_size}.png"
+    return Image.open(p).convert("RGB")
+
 def _get_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
     """Prefer a packaged font that exists on Linux (HF) over platform fonts."""
     faces = [
@@ -27,7 +32,6 @@ def _get_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
             continue
 
     return ImageFont.load_default()
-
 
 def _render_color_palette() -> None:
 
@@ -140,15 +144,8 @@ def render_app() -> None:
     else:
         cell_size = 115
 
-    # Build base template keyed by chosen size (so switching sizes rebuilds)
-    template_key = f"base_template_{cell_size}"
-    if template_key not in st.session_state:
-        base_img = build_base_template(cell_size=cell_size)
-        st.session_state[template_key] = base_img
-    base_img = st.session_state[template_key]
-
-    # Ensure background for canvas is RGB (not RGBA)
-    canvas_bg = base_img.convert("RGB")
+    base_img = load_base_template(cell_size)
+    canvas_bg = base_img  # already RGB
     
     # ----- Palette at top -----
     _render_color_palette()
