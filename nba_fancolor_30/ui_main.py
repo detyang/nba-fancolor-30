@@ -234,15 +234,33 @@ def render_app() -> None:
         else:
             st.caption("Draw something on the canvas to enable saving.")
 
+    if "show_share_help" not in st.session_state:
+        st.session_state["show_share_help"] = False
+
     with col_share:
         if poster_bytes is not None:
-            if st.button("Share", use_container_width=True):
-                st.info(
-                    "1. Click **Save image** to download your poster.\n"
-                    "2. Upload the PNG to your favorite platform (X, TikTok, Reddit, etc.).\n\n"
-                    "Quick link for X: "
-                    "[Compose a post](https://twitter.com/intent/tweet?text=My%20NBA%20Fan%20Color%2030%20poster%20%F0%9F%8F%80%20%23NBA%20%23FanColor30)"
-                )
+            # Use on_click so state updates cleanly
+            st.button(
+                "Share",
+                use_container_width=True,
+                on_click=lambda: st.session_state.update(show_share_help=True),
+            )
+
+            if st.session_state["show_share_help"]:
+                with st.container(border=True):
+                    st.markdown(
+                        "1. Click **Save image** to download your poster  \n"
+                        "2. Upload the PNG to your favorite platform (X, TikTok, Reddit, etc.)  \n\n"
+                        "Quick link for X: "
+                        "[Compose a post](https://twitter.com/intent/tweet?text=My%20NBA%20Fan%20Color%2030%20poster%20%F0%9F%8F%80%20%23NBA%20%23FanColor30)"
+                    )
+
+                    st.button(
+                        "Close",
+                        use_container_width=True,
+                        on_click=lambda: st.session_state.update(show_share_help=False),
+                        key="close_share_help",
+                    )
         else:
             st.caption("Create your poster first, then you can share it.")
 
