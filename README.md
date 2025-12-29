@@ -1,10 +1,3 @@
-<!--
-NOTE:
-The following YAML front-matter is REQUIRED by Hugging Face Spaces
-to configure and deploy this application (Docker SDK, app entry, UI metadata).
-Do not remove unless you also update the Hugging Face Space configuration.
--->
-
 ---
 title: NBA Fan Color 30
 emoji: 🏀
@@ -14,6 +7,8 @@ sdk: docker
 app_file: Dockerfile
 pinned: false
 ---
+
+> **Note:** The YAML block above is required by Hugging Face Spaces for deployment/config (Docker SDK, entry file, UI metadata). Please don’t remove it unless you update the Space settings.
 
 
 
