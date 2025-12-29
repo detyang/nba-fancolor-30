@@ -10,3 +10,17 @@ dependencies = [
     "streamlit-drawable-canvas-fix==0.9.8",
     "streamlit-javascript==0.1.5",
 ]
+
+[build-system]
+requires = ["hatchling>=1.26.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["nba_fancolor_30"]
+
+[tool.hatch.build]
+include = [
+  "nba_fancolor_30/**/*.py",
+  "nba_fancolor_30/assets/**/*.css",
+  "nba_fancolor_30/assets/**/*.png",
+]
