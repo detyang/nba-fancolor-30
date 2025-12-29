@@ -1,3 +1,22 @@
+<!--
+NOTE:
+The following YAML front-matter is REQUIRED by Hugging Face Spaces
+to configure and deploy this application (Docker SDK, app entry, UI metadata).
+Do not remove unless you also update the Hugging Face Space configuration.
+-->
+
+---
+title: NBA Fan Color 30
+emoji: 🏀
+colorFrom: blue
+colorTo: red
+sdk: docker
+app_file: Dockerfile
+pinned: false
+---
+
+
+
 # NBA Fan Color 30 🎨🏀
 
 A Streamlit-based web app that lets users color their NBA team fan ratings and export a shareable poster.
